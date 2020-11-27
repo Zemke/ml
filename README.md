@@ -45,22 +45,66 @@ This can work with a **gradient descent** algorithm.
 
 Weight decides how vital the information is for the output.
 
-### Gradient descent
+### Gradient Descent
 
 Since in **backpropagation** the idea is to re-evaluate the weights, gradient descent is an optimization algorithm. It's used when training a machine learning model.
 
-### Binary Classifier
+**Derivative** or **Differential** is how much off the value is from an expection.
 
-Classify into two groups (binary, you know?) by a classficiation rule. \
-I assume the classification rule could be an activation function, but also  **TODO**
+[More](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf)
 
-> Perceptron is usually used to classify the data into two parts. Therefore, it is also known as a Linear Binary Classifier. [Source](https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53)
+### Loss function
+
+Calculates the gradient of the loss function. This sounds fancy and I don't really know what it means. But loss functions come into play somewhere in the realm of backpropagation and optimizing the graph.
+
+Remember, training the NN on a test data set is essentially and operation to improve the assignment of weights in the NN. \
+The lower the loss value, the less a value is off from what was expected. So, loss should be as low as possible.
+
+There's some subtleties to this, though, like over-fitting.
+
+### Over-fitting
+
+The NN has memorized correct results rather than trained for it.
+
+## Tensor
+
+Data container, n-dimensional array. Not multidimensional -- n-dimensional! A scalar is therefore a 0-dimensional tensor.
+
+Sclar is of rank 0. That's number of axes. Matrices are of rank 2
+
+That's the theory. Practically tensors are referred to as tensors when they are n>=3 dimensional matrices.
+
+Type | Array | Dimensions
+--- | ---
+Scalar | 1 | 0
+Vextor | [1,2,...] | 1
+Matrix | [[1,2,3,...],[1,2,3,...],...] | 2
+Tensor | [[[1,2,3...], [1,2,3...]], [[1,2,3...], [1,2,3...]]] | n
+
+Tensor of rank 3:
+
+```
+[[[  1,   4,   7]
+  [  2,   5,   8]
+  [  3,   6,   9]]
+ [[ 10,  40,  70]
+  [ 20,  50,  80]
+  [ 30,  60,  90]]
+ [[100, 400, 700]
+  [200, 500, 800]
+  [300, 600, 900]]]
+```
+
+[Source](https://towardsdatascience.com/quick-ml-concepts-tensors-eb1330d7760f)
+
+## Optimizer
+
+Algorithms to optimize the NN such as amending weights to reduce the loss. Gradient descent is used by most of them.
+
 
 ## Activation Function
 
-**TODO**
-
-Gets output of a note. Also refered to as Transfer Function.
+Gets output of a node. Also refered to as Transfer Function.
 
 Proceeding to just pasting here as I don't fully understand but might recall later:
 
@@ -68,8 +112,19 @@ Proceeding to just pasting here as I don't fully understand but might recall lat
 
 > It is used to determine the output of neural network like yes or no. It maps the resulting values in between 0 to 1 or -1 to 1 etc. (depending upon the function).
 
-> **Derivative or Differential**: Change in y-axis w.r.t. change in x-axis.It is also known as slope.
-> **Monotonic function**: A function which is either entirely non-increasing or non-decreasing.
+### Sigmoid
+
+NNs are mainly for classification, in binary classification there are naturally two types. \
+Sometimes the result of a NN the result can be any amount of arbitrary numbers. Sigmoid can group these into two outcomes for a binary classification.
+
+See `sigmoid.py` for an implementation.
+
+### ReLu
+
+```
+f(x)=max(0,x)
+
+According to [this](https://deepai.org/machine-learning-glossary-and-terms/relu) ReLu replacing Sigmoid for typical use because it saves on computation.
 
 ## Neural Network Topologies
 
@@ -95,16 +150,20 @@ Multilayer perceptrons are a feed forward NN.
 
 **Applications**: Data Compression, Pattern Recognition, Computer Vision, Sonar Target Recognition, Speech Recognition, Handwritten Characters Recognition.
 
-### Radial Basis Network (RBN)
+### Deep Convolutional Network (DCN)
 
-**TODO** 
+* Classifications of images, clustering of images and object recognition
+* Unsupervised construction of hierarchical image representations
+
+**Application**: Identify Faces, Street Signs, Tumors, Image Recognition, Video Analysis, NLP, Anomaly Detection, Drug Discovery, Checkers Game, Time Series Forecasting.
+
+### Other
 
 Many more NNs at https://medium.com/towards-artificial-intelligence/main-types-of-neural-networks-and-its-applications-tutorial-734480d7ec8e
 
 # TODO
 
-[6. Sigmoid function](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbfo) \
-[Monte Carlo simulation](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf)
+[Neural Network Implementation from Scratch](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf)
 
 # Sources
 

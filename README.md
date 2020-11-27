@@ -103,15 +103,15 @@ Many more NNs at https://medium.com/towards-artificial-intelligence/main-types-o
 
 # TODO
 
-[6. Sigmoid function](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbfo)
+[6. Sigmoid function](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbfo) \
 [Monte Carlo simulation](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf)
 
 # Sources
 
 https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf
 
-<sup>1</sup>I think the input layer isn't counted, therefore twok layers but a single-layer NN.
-<sup>2</sup>https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53
+<sup>1</sup>I think the input layer isn't counted, therefore two layers but a single-layer NN. \
+<sup>2</sup>https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53 \
 <sup>3</sup>https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf
 
 # See also

@@ -16,6 +16,6 @@ plt.title("Sigmoid")
 plt.show()
 
 # Lesson learnt: Values ranging from -10 to 10 are now ranging from 0 to 1.
-#  In other words: close to 0 or closer to 0
+#  In other words: close to 0 or closer to 1
 #  That makes for binary classification.
 

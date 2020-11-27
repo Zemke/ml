@@ -75,7 +75,7 @@ Sclar is of rank 0. That's number of axes. Matrices are of rank 2
 That's the theory. Practically tensors are referred to as tensors when they are n>=3 dimensional matrices.
 
 Type | Array | Dimensions
---- | ---
+--- | --- | ---
 Scalar | 1 | 0
 Vextor | [1,2,...] | 1
 Matrix | [[1,2,3,...],[1,2,3,...],...] | 2

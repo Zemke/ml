@@ -66,6 +66,8 @@ There's some subtleties to this, though, like over-fitting.
 
 The NN has memorized correct results rather than trained for it.
 
+Can be observed when training accuracy is greater than prediction accuracy.
+
 ## Tensor
 
 Data container, n-dimensional array. Not multidimensional -- n-dimensional! A scalar is therefore a 0-dimensional tensor.

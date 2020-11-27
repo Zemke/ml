@@ -123,6 +123,7 @@ See `sigmoid.py` for an implementation.
 
 ```
 f(x)=max(0,x)
+```
 
 According to [this](https://deepai.org/machine-learning-glossary-and-terms/relu) ReLu replacing Sigmoid for typical use because it saves on computation.
 

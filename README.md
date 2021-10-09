@@ -27,12 +27,12 @@ Hidden layers are only connected among themselves or with input or output layers
 
 ## Perceptron
 
-A perceptron is an algorithm for supervised learning of binary clasifiers.
+A perceptron is an algorithm for supervised learning of binary classifiers.
 
 Money quote: "The Neural Networks work the same way as the perceptron."<sup>2</sup>
 
-a. Inputs are multiplied with their weights called.
-b. *Add* all multiplied values and call them *Weighted Sum*.
+a. Inputs are multiplied with their weights called. \
+b. *Add* all multiplied values and call them *Weighted Sum*. \
 c. Apply the *Weighted Sum* to the correct *Activation Function*.
 
 *Neural network without hidden layers.*
@@ -55,9 +55,11 @@ Since in **backpropagation** the idea is to re-evaluate the weights, gradient de
 
 ### Loss function
 
+Also referred to as cost function.
+
 Calculates the gradient of the loss function. This sounds fancy and I don't really know what it means. But loss functions come into play somewhere in the realm of backpropagation and optimizing the graph.
 
-Remember, training the NN on a test data set is essentially and operation to improve the assignment of weights in the NN. \
+Remember, training the NN on a test data set is essentially an operation to improve the assignment of weights in the NN. \
 The lower the loss value, the less a value is off from what was expected. So, loss should be as low as possible.
 
 There's some subtleties to this, though, like over-fitting.
@@ -72,14 +74,14 @@ Can be observed when training accuracy is greater than prediction accuracy.
 
 Data container, n-dimensional array. Not multidimensional -- n-dimensional! A scalar is therefore a 0-dimensional tensor.
 
-Sclar is of rank 0. That's number of axes. Matrices are of rank 2
+Scalar is of rank 0. That's number of axes. Matrices are of rank 2
 
 That's the theory. Practically tensors are referred to as tensors when they are n>=3 dimensional matrices.
 
 Type | Array | Dimensions
 --- | --- | ---
 Scalar | 1 | 0
-Vextor | [1,2,...] | 1
+Vector | [1,2,...] | 1
 Matrix | [[1,2,3,...],[1,2,3,...],...] | 2
 Tensor | [[[1,2,3...], [1,2,3...]], [[1,2,3...], [1,2,3...]]] | n
 
@@ -135,7 +137,7 @@ What kind of NNs are there.
 
 ### Perceptron (P)
 
-Single-layer NN. input and output layer.<sup>1</sup> \
+Single-layer NN. Input and output layer.<sup>1</sup> \
 Calculation of weighted input then an activiation function (usually Sigmoid).
 
 This is called a Perceptron model. A recurring term.

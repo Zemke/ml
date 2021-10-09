@@ -180,6 +180,10 @@ https://medium.com/towards-artificial-intelligence/building-neural-networks-from
 
 # See also
 
-- [Rules-of-thumb for building a Neural Network](https://towardsdatascience.com/17-rules-of-thumb-for-building-a-neural-network-93356f9930af)
-- [Tic Tac Toe supervised Machine Learning](https://github.com/Mathspy/tic-tac-toe-NN)
+- [NN Concept Animations](https://nnfs.io/neural_network_animations) \
+- [Rules-of-thumb for building a Neural Network](https://towardsdatascience.com/17-rules-of-thumb-for-building-a-neural-network-93356f9930af) \
+- [Tic Tac Toe supervised Machine Learning](https://github.com/Mathspy/tic-tac-toe-NN) \
+- [A Guide to transitioning from software Developer/Engineer to Machine Learning Engineer](https://towardsdatascience.com/a-guide-to-transitioning-from-software-developer-engineer-to-machine-learning-engineer-49c8395dd63a) (Also the linked Stanford lectures in there) \
+- [geohot/tinygrad NN from scratch reference implementation](https://github.com/geohot/tinygrad) \
+- [NN from Scratch in Python](https://github.com/Sentdex/NNfSiX/tree/master/Python)
 

@@ -38,7 +38,7 @@ class Activation:
 
   @staticmethod
   def step(i):
-    return 1 if i > 0 else 0
+    return int(i > 0)
 
   @staticmethod
   def sigmoid(i):

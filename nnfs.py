@@ -63,23 +63,16 @@ class Neuron:
     self.output = np.dot(self.weights, ii) + self.bias
     return self.output
 
-
-# layer may be a list of nodes/neurons
-
-# TODO batch
-#X = [[1, 2, 3, 2.5],
-#     [2.0, 5.0, -1.0, 2.0],
-#     [-1.5, 2.7, 3.3, -0.8]]
-
 X = [1, 2, 3, 2.5]
 
-# every input has a weight
-weights = [[0.2, 0.8, -0.5, 1.0],
-           [0.5, -0.91, 0.26, -0.5],
-           [-0.26, -0.27, 0.17, 0.87]]
+# every input per neuron has a weight
+weights = [[0.2, 0.8, -0.5, 1.0],  # weights of inputs into neuron 1
+           [0.5, -0.91, 0.26, -0.5],  # weights of inputs into neuron 2
+           [-0.26, -0.27, 0.17, 0.87]]  # weights of inputs into neuron 3
 
-neuron = Neuron(weights, 2.0)
-neuron.forward(X)
+nn = [Neuron(weights[0], 2.0), Neuron(weights[1], 3.0), Neuron(weights[2], 0.5)]
 
-print(neuron.output)
+for n in nn:
+  n.forward(X)
+  print(n.output)
 

@@ -9,21 +9,24 @@ which is a neuron in the neural net
 
 batch of inputs
       |
-      |
-      |
       V
-input * weight + bias
+input * weight + bias <-------|
+      |                       |
+      | activation function   | per layer
+      | probably ReLU         | (not recursive)
+      V                       |
+    output --------------------
       |
-      | activation function
-      |
+      | activation function toward output layer
+      | which is maybe probably softmax
       V
-    output
+ output layer
 
 one bias    per neuron
-one weight  per input
+one weight  per input       per neuron
+  n neurons per layer
   x inputs  per neuron
   y inputs  per input batch
-  n neurons per layer
 """
 
 
@@ -37,6 +40,14 @@ class Activation:
   def step(i):
     return 1 if i > 0 else 0
 
+  @staticmethod
+  def sigmoid(i):
+    raise Exception("TODO")
+
+  @staticmethod
+  def softmax(i):
+    raise Exception("TODO")
+
 
 class Neuron:
   
@@ -45,7 +56,6 @@ class Neuron:
     self.bias = bias
 
   def forward(self, ii):
-    # TODO I guess this doesn't work for batches
     # i[0] * weights[0] + i[1] * weights[1] ... + bias
     self.output = np.dot(self.weights, ii) + self.bias
     return self.output

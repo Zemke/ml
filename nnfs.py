@@ -56,6 +56,9 @@ class Neuron:
     self.bias = bias
 
   def forward(self, ii):
+    # numpy often works on an element-basis
+    #  meaning the + bias part is applied to each element
+    #  of the numpy array
     # i[0] * weights[0] + i[1] * weights[1] ... + bias
     self.output = np.dot(self.weights, ii) + self.bias
     return self.output

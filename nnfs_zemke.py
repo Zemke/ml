@@ -42,19 +42,19 @@ in a densely connected NN each neuron in the layer
 class Activation:
 
   @staticmethod
-  def ReLU(i):
-    return max(i, 0)
+  def ReLU(X):
+    return np.maximum(X, 0)
 
   @staticmethod
-  def step(i):
-    return int(i > 0)
+  def step(X):
+    return np.vectorize(lambda x: int(x > 0))(X)
 
   @staticmethod
-  def sigmoid(i):
+  def sigmoid(X):
     raise Exception("TODO")
 
   @staticmethod
-  def softmax(i):
+  def softmax(X):
     raise Exception("TODO")
 
 

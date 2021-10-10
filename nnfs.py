@@ -27,7 +27,14 @@ one weight  per input       per neuron
   n neurons per layer
   x inputs  per neuron
   y inputs  per input batch
+
+there's always y inputs to a neuron
+ and one output
+in a densely connected NN each neuron in the layer
+ receives the same inputs
 """
+
+np.random.seed(0)
 
 
 class Activation:
@@ -51,28 +58,67 @@ class Activation:
 
 class Neuron:
   
-  def __init__(self, weights, bias):
+  def __init__(self, n_inputs, weights):
+    """
+    Neurons are weights per input and a bias.
+    After the forward pass an activation function is applied.
+    """
     self.weights = weights
-    self.bias = bias
+    self.bias = 0
 
   def forward(self, ii):
-    # numpy often works on an element-basis
-    #  meaning the + bias part is applied to each element
-    #  of the numpy array
-    # i[0] * weights[0] + i[1] * weights[1] ... + bias
-    self.output = np.dot(self.weights, ii) + self.bias
+    """
+    The forward pass of a neuron is the dot product of
+    its weights and the inputs.
+    i[0] * weights[0] + i[1] * weights[1] ... + bias
+    """
+    # numpy often works on an element-basis meaning the
+    #  + bias part is applied to each element of the numpy array
+    self.output = np.dot(ii, self.weights.T) + self.bias
     return self.output
 
-X = [1, 2, 3, 2.5]
 
-# every input per neuron has a weight
-weights = [[0.2, 0.8, -0.5, 1.0],  # weights of inputs into neuron 1
-           [0.5, -0.91, 0.26, -0.5],  # weights of inputs into neuron 2
-           [-0.26, -0.27, 0.17, 0.87]]  # weights of inputs into neuron 3
+class DenseLayer:
 
-nn = [Neuron(weights[0], 2.0), Neuron(weights[1], 3.0), Neuron(weights[2], 0.5)]
+  def __init__(self, n_inputs, n_neurons):
+    """
+    A layer is made up of neurons.
+    """
+    weights = .1 * np.random.randn(n_inputs, n_neurons).T
+    self.neurons = [Neuron(n_inputs, weights[i]) for i in range(n_neurons)]
 
-for n in nn:
-  n.forward(X)
-  print(n.output)
+  def forward(self, X):
+    """
+    The inputs to each neuron in the layer are the same
+    in a densely connected NN. Every neuron from the previous
+    layer is connected to each neuron in the next layer.
+    The neurons only differ by their assigned weights.
+    """
+    y = []
+    for n in self.neurons:
+      y.append(np.dot(X, n.weights) + n.bias)
+    self.y = np.array(y).T
+    # expected shape should be (batch_size, n_neurons)
+    return self.y
+
+
+# per convention X is the training data input also called the features
+# the NN ends up outputting what's called the labels by convention y
+# this is an input of 4 in a batch of size 3
+X = [[1, 2, 3, 2.5],
+     [2.0, 5.0, -1.0, 2.0],
+     [-1.5, 2.7, 3.3, -0.8]]
+
+
+# number of neurons in the previous layer is the number of inputs
+#  per neuron in the next layer
+layers = [DenseLayer(4, 5), DenseLayer(5, 2)]
+
+layers[0].forward(X)
+print("layer1 y:")
+print(layers[0].y)
+
+layers[1].forward(layers[0].y)
+print("layer2 y:")
+print(layers[1].y)
 

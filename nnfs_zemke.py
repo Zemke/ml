@@ -3,6 +3,7 @@
 import numpy as np
 
 import nnfs
+from nnfs.datasets import spiral_data
 
 nnfs.init()
 
@@ -112,20 +113,16 @@ class DenseLayer:
 # per convention X is the training data input also called the features
 # the NN ends up outputting what's called the labels by convention y
 # this is an input of 4 in a batch of size 3
-X = [[1, 2, 3, 2.5],
-     [2.0, 5.0, -1.0, 2.0],
-     [-1.5, 2.7, 3.3, -0.8]]
+X, y = spiral_data(100, 3)
+print("X")
+print(X)
 
 
 # number of neurons in the previous layer is the number of inputs
 #  per neuron in the next layer
-layers = [DenseLayer(4, 5), DenseLayer(5, 2)]
+layers = [DenseLayer(2, 5)]
 
 layers[0].forward(X)
 print("layer1 y:")
 print(layers[0].y)
-
-layers[1].forward(layers[0].y)
-print("layer2 y:")
-print(layers[1].y)
 

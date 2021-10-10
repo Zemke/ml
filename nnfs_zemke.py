@@ -66,7 +66,7 @@ class Neuron:
     self.weights = weights
     self.bias = 0
 
-  def forward(self, ii):
+  def forward(self, X):
     """
     The forward pass of a neuron is the dot product of
     its weights and the inputs.
@@ -74,7 +74,7 @@ class Neuron:
     """
     # numpy often works on an element-basis meaning the
     #  + bias part is applied to each element of the numpy array
-    self.output = np.dot(ii, self.weights.T) + self.bias
+    self.output = np.dot(X, self.weights) + self.bias
     return self.output
 
 
@@ -96,7 +96,7 @@ class DenseLayer:
     """
     y = []
     for n in self.neurons:
-      y.append(np.dot(X, n.weights) + n.bias)
+      y.append(n.forward(X))
     self.y = np.array(y).T
     # expected shape should be (batch_size, n_neurons)
     return self.y

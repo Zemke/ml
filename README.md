@@ -45,6 +45,18 @@ This can work with a **gradient descent** algorithm.
 
 Weight decides how vital the information is for the output.
 
+Backpropagation also applies **automatic differentiation** which is used to calculate the **gradient descent** efficiently (see below (see below)).
+
+### Automatic Differentiation
+
+[A practical application: Gradient Descent](https://medium.com/@rhome/automatic-differentiation-26d5a993692b#d4e5)
+
+#### Derivative
+
+> A derivative is a continuous description of how a function changes with small changes in one or multiple variables.
+
+A derivative may be the sensibility to change. Autodiff is a set of techniques to evaluates these derivatives.
+
 ### Gradient Descent
 
 Since in **backpropagation** the idea is to re-evaluate the weights, gradient descent is an optimization algorithm. It's used when training a machine learning model.

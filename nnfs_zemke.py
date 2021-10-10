@@ -2,6 +2,10 @@
 
 import numpy as np
 
+import nnfs
+
+nnfs.init()
+
 
 """
 for each node in the graph
@@ -33,8 +37,6 @@ there's always y inputs to a neuron
 in a densely connected NN each neuron in the layer
  receives the same inputs
 """
-
-np.random.seed(0)
 
 
 class Activation:
@@ -74,7 +76,7 @@ class Neuron:
     """
     # numpy often works on an element-basis meaning the
     #  + bias part is applied to each element of the numpy array
-    self.output = np.dot(X, self.weights) + self.bias
+    self.output = np.dot(np.array(X), self.weights) + self.bias
     return self.output
 
 

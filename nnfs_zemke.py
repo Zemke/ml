@@ -40,6 +40,9 @@ in a densely connected NN each neuron in the layer
 
 
 class Activation:
+  """
+  Apply activation functions on batches of inputs.
+  """
 
   @staticmethod
   def ReLU(X):

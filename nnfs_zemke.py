@@ -41,8 +41,9 @@ in a densely connected NN each neuron in the layer
 
 class Activation:
   """
-  Apply activation functions on batches of inputs.
-  They're applied after forward pass (dot product + bias).
+  Activation functions are applied to the output of all layer's neurons.
+  That is for each neuron in the layer the dot product + bias.
+  Therefore they're run on layer-leven rather than for each neuron.
   """
 
   @staticmethod
@@ -68,8 +69,12 @@ class Activation:
     """
     Often used for the output layer.
     Softmax is Exponentiation then Normalization.
+    Softmax requires the outputs of all neurons in the layer.
     """
     # as always in numpy the operation is done element-wise
+    # axis 0 is max in col, 1 is max in row
+    # max reduces an elemnts array to a scalar but keepdims retains
+    #  that dimension making it a one-element vector
     exp = np.exp(X - np.max(X, axis=1, keepdims=True))
     norm = exp / np.sum(exp, axis=1, keepdims=True)
     return norm
@@ -117,7 +122,6 @@ class DenseLayer:
     for n in self.neurons:
       fp = n.forward(X)
       y.append(fp)
-    # activation function applies to result of forward pass
     self.y = activation_fn(np.array(y).T)
     # expected shape should be (batch_size, n_neurons)
     return self.y

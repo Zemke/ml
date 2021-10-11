@@ -128,6 +128,9 @@ class DenseLayer:
     """
     A layer is made up of neurons.
     """
+    # normally it would be n_neurons by n_inputs
+    # here it's the other way around and then transposed to make the weight
+    # per input align with what's at Sentdex/NNfSiX
     weights = .1 * np.random.randn(n_inputs, n_neurons).T
     self.neurons = [Neuron(n_inputs, weights[i]) for i in range(n_neurons)]
 

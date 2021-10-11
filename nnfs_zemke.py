@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import numpy as np
-
 import nnfs
 from nnfs.datasets import spiral_data
 
@@ -54,20 +53,21 @@ class Activation:
     return np.maximum(X, 0)
 
   @staticmethod
-  def step(X):
+  def Step(X):
     """
     Was popular before ReLU.
     """
     return np.vectorize(lambda x: int(x > 0))(X)
 
   @staticmethod
-  def sigmoid(X):
+  def Sigmoid(X):
     raise Exception("TODO")
 
   @staticmethod
-  def softmax(X):
+  def Softmax(X):
     """
     Often used for the output layer.
+    Softmax is Exponentiation then Normalization.
     """
     raise Exception("TODO")
 
@@ -103,7 +103,7 @@ class DenseLayer:
     weights = .1 * np.random.randn(n_inputs, n_neurons).T
     self.neurons = [Neuron(n_inputs, weights[i]) for i in range(n_neurons)]
 
-  def forward(self, X):
+  def forward(self, X, activation_fn):
     """
     The inputs to each neuron in the layer are the same
     in a densely connected NN. Every neuron from the previous
@@ -114,7 +114,7 @@ class DenseLayer:
     for n in self.neurons:
       fp = n.forward(X)
       # activation function applies to result of forward pass
-      y.append(Activation.ReLU(fp))
+      y.append(activation_fn(fp))
     self.y = np.array(y).T
     # expected shape should be (batch_size, n_neurons)
     return self.y
@@ -122,17 +122,14 @@ class DenseLayer:
 
 # per convention X is the training data input also called the features
 # the NN ends up outputting what's called the labels by convention y
-# this is an input of 4 in a batch of size 3
 X, y = spiral_data(100, 3)
-print("X")
-print(X)
-
+print("X\n", X)
 
 # number of neurons in the previous layer is the number of inputs
 #  per neuron in the next layer
 layers = [DenseLayer(2, 5)]
 
-layers[0].forward(X)
+layers[0].forward(X, Activation.ReLU)
 print("layer1 y:")
 print(layers[0].y)
 

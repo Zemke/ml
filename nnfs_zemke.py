@@ -46,6 +46,13 @@ one weight  per input       per neuron
 There's always y inputs to a neuron and one output.
 In a densely connected NN each neuron in the layer receives
 the same inputs.
+
+The main difference to Sentdex/NNfSiX is that the implementation
+here does the forward pass (dot product + bias) on a per-neuron level.
+Sentdex/NNfSiX does the pass for the whole layer.
+This is visible in how DenseLayer.forward is implemented which
+delegates the dot product calculation to every single neuron in its
+layer rather than doing the matrix product itself.
 """
 
 
@@ -105,6 +112,9 @@ class Neuron:
     The forward pass of a neuron is the dot product of
     its weights and the inputs.
     i[0] * weights[0] + i[1] * weights[1] ... + bias
+    In this case we do the forward pass on a neuron level.
+    If we were to do this on a matrix level, we'd be doing
+    matrix multiplication here.
     """
     # numpy often works on an element-basis meaning the
     #  + bias part is applied to each element of the numpy array
@@ -128,11 +138,13 @@ class DenseLayer:
     layer is connected to each neuron in the next layer.
     The neurons only differ by their assigned weights.
     """
-    y = []
-    for n in self.neurons:
-      fp = n.forward(X)
-      y.append(fp)
-    self.y = activation_fn(np.array(y).T)
+    yy = []
+    for batch in X:
+      y = []
+      for n in self.neurons:
+        y.append(n.forward(batch))
+      yy.append(y)
+    self.y = activation_fn(np.array(yy))
     # expected shape should be (batch_size, n_neurons)
     return self.y
 

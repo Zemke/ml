@@ -8,23 +8,34 @@ nnfs.init()
 
 
 """
-for each node in the graph
-which is a neuron in the neural net
+batches of inputs are fed into the NN
+here 3 inputs in a batch of two
+[[1,2,3], [4,5,6]]
+        /\
+       /  \    therefore the input layer must
+      /    \   consist of two neurons
+     /      \
+   _/_       \__
+  |   |     |   |  each neuron does the dot product
+  |___|     |___|  of the input matrix and weight matrix
+   \          /
+    \        /
+    Activation     all outputs of a layer are
+     function      passed into an activation function
+       \  /        for hidden layers that's often ReLU
+       _\/_
+      |    |  again input matrix
+      |____|  mutliplied by weight matrix
+        |
+        |  the activation function for output layers
+        |  is often different to the hidden layers
+        |  (Softmax for example)
+        V
+      labels
 
-batch of inputs
-      |
-      V
-input * weight + bias <-------|
-      |                       |
-      | activation function   | per layer
-      | probably ReLU         | (not recursive)
-      V                       |
-    output --------------------
-      |
-      | activation function toward output layer
-      | which is maybe probably softmax
-      V
- output layer
+The input to a NN is often called features and referenced as X
+by convention.
+The output is referred to as labels and denoted as yfeatures.
 
 one bias    per neuron
 one weight  per input       per neuron
@@ -32,10 +43,9 @@ one weight  per input       per neuron
   x inputs  per neuron
   y inputs  per input batch
 
-there's always y inputs to a neuron
- and one output
-in a densely connected NN each neuron in the layer
- receives the same inputs
+There's always y inputs to a neuron and one output.
+In a densely connected NN each neuron in the layer receives
+the same inputs.
 """
 
 

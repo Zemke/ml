@@ -43,14 +43,21 @@ in a densely connected NN each neuron in the layer
 class Activation:
   """
   Apply activation functions on batches of inputs.
+  They're applied after forward pass (dot product + bias).
   """
 
   @staticmethod
   def ReLU(X):
+    """
+    Very commonly used in hidden layers.
+    """
     return np.maximum(X, 0)
 
   @staticmethod
   def step(X):
+    """
+    Was popular before ReLU.
+    """
     return np.vectorize(lambda x: int(x > 0))(X)
 
   @staticmethod
@@ -59,6 +66,9 @@ class Activation:
 
   @staticmethod
   def softmax(X):
+    """
+    Often used for the output layer.
+    """
     raise Exception("TODO")
 
 

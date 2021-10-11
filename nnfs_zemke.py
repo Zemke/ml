@@ -116,9 +116,9 @@ class DenseLayer:
     y = []
     for n in self.neurons:
       fp = n.forward(X)
-      # activation function applies to result of forward pass
-      y.append(activation_fn(fp))
-    self.y = np.array(y).T
+      y.append(fp)
+    # activation function applies to result of forward pass
+    self.y = activation_fn(np.array(y).T)
     # expected shape should be (batch_size, n_neurons)
     return self.y
 

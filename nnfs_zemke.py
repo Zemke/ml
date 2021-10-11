@@ -93,8 +93,8 @@ class Neuron:
     """
     # numpy often works on an element-basis meaning the
     #  + bias part is applied to each element of the numpy array
-    self.output = np.dot(np.array(X), self.weights) + self.bias
-    return self.output
+    self.y = np.dot(np.array(X), self.weights) + self.bias
+    return self.y
 
 
 class DenseLayer:

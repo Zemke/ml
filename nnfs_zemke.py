@@ -126,13 +126,16 @@ class DenseLayer:
 # per convention X is the training data input also called the features
 # the NN ends up outputting what's called the labels by convention y
 X, y = spiral_data(100, 3)
-print("X\n", X)
 
 # number of neurons in the previous layer is the number of inputs
 #  per neuron in the next layer
-layers = [DenseLayer(2, 5)]
+layers = [DenseLayer(2, 3), DenseLayer(3, 3)]
 
 layers[0].forward(X, Activation.ReLU)
 print("layer1 y:")
 print(layers[0].y)
+
+layers[1].forward(layers[0].y, Activation.Softmax)
+print("layer2 y:")
+print(layers[1].y)
 

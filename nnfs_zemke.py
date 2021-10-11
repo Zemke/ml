@@ -69,7 +69,10 @@ class Activation:
     Often used for the output layer.
     Softmax is Exponentiation then Normalization.
     """
-    raise Exception("TODO")
+    # as always in numpy the operation is done element-wise
+    exp = np.exp(X - np.max(X, axis=1, keepdims=True))
+    norm = exp / np.sum(exp, axis=1, keepdims=True)
+    return norm
 
 
 class Neuron:

@@ -59,7 +59,8 @@ layer rather than doing the matrix product itself.
 
 class Loss:
 """
-Higher confidence evaluates to lower loss. They're run after the output layer.
+Higher confidence evaluates to lower loss.
+They're run after the activation function of the output layer.
 """
 
   @staticmethod

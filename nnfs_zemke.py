@@ -57,6 +57,11 @@ layer rather than doing the matrix product itself.
 """
 
 
+def accuracy(X, y):
+  predictions = np.argmax(X, axis=1)
+  return np.mean(predictions == y)
+
+
 class Loss:
   """
   Higher confidence evaluates to lower loss.
@@ -206,4 +211,6 @@ print("layer2 y:")
 print(layers[1].y)
 
 print("loss", Loss.CategoricalCrossEntropy(layers[1].y, y))
+
+print("acc", accuracy(layers[1].y, y))
 

@@ -57,11 +57,11 @@ layer rather than doing the matrix product itself.
 
 
 class Activation:
-  """
-  Activation functions are applied to the output of all layer's neurons.
-  That is for each neuron in the layer the dot product + bias.
-  Therefore they're run on layer-leven rather than for each neuron.
-  """
+"""
+Activation functions are applied to the output of all layer's neurons.
+That is for each neuron in the layer the dot product + bias.
+Therefore they're run on layer-leven rather than for each neuron.
+"""
 
   @staticmethod
   def ReLU(X):
@@ -123,11 +123,11 @@ class Neuron:
 
 
 class DenseLayer:
+"""
+A layer is made up of neurons.
+"""
 
   def __init__(self, n_inputs, n_neurons):
-    """
-    A layer is made up of neurons.
-    """
     # normally it would be n_neurons by n_inputs
     # here it's the other way around and then transposed to make the weight
     # per input align with what's at Sentdex/NNfSiX

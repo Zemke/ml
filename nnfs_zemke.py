@@ -58,10 +58,10 @@ layer rather than doing the matrix product itself.
 
 
 class Loss:
-"""
-Higher confidence evaluates to lower loss.
-They're run after the activation function of the output layer.
-"""
+  """
+  Higher confidence evaluates to lower loss.
+  They're run after the activation function of the output layer.
+  """
 
   @staticmethod
   def CategoricalCrossEntropy(yy, tt):
@@ -82,11 +82,11 @@ They're run after the activation function of the output layer.
 
 
 class Activation:
-"""
-Activation functions are applied to the output of all layer's neurons.
-That is for each neuron in the layer the dot product + bias.
-Therefore they're run on layer-leven rather than for each neuron.
-"""
+  """
+  Activation functions are applied to the output of all layer's neurons.
+  That is for each neuron in the layer the dot product + bias.
+  Therefore they're run on layer-leven rather than for each neuron.
+  """
 
   @staticmethod
   def ReLU(X):
@@ -148,9 +148,9 @@ class Neuron:
 
 
 class DenseLayer:
-"""
-A layer is made up of neurons.
-"""
+  """
+  A layer is made up of neurons.
+  """
 
   def __init__(self, n_inputs, n_neurons):
     # normally it would be n_neurons by n_inputs

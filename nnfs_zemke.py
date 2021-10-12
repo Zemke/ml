@@ -64,7 +64,7 @@ class Loss:
   """
 
   @staticmethod
-  def CategoricalCrossEntropy(yy, tt):
+  def CategoricalCrossEntropy(X, tt):
     """
     An example:
     There are three classes the NN is meant to result into.
@@ -74,11 +74,21 @@ class Loss:
     If the prediction yy is [.7, .1, .2] then each number is the confidence
     of the NN per categorical variable as per one-hot encoding.
     For example .7 is the confidence that it's class at tt[0].
+    Since one-hot encoding creates kind of a binary content vector
+    ML categorical cross-entropy simplifies to just the negative natural log
+    of the predictions (multiplying by 0 gives nothing, by 1 gives everything).
     """
-    r = 0
-    for i in range(len(tt)):
-      r += tt[i] * math.log(yy[i])
-    return -(r)
+    clipped = np.clip(X, 1e-7, 1 - 1e-7)  # prevent results of -inf through log(0)
+    sample_r = range(len(X))
+    if len(tt.shape) == 1:
+      confidences = clipped[sample_r, tt]
+    elif len(tt.shape) == 2:
+      # one-hot encoded
+      confidences = clipped[sample_r, np.where(tt == 1)[1]]
+    else:
+      raise Exception("Invalid target tt shape " + tt.shape)
+    losses = -np.log(confidences)
+    return np.mean(losses)
 
 
 class Activation:
@@ -180,6 +190,7 @@ class DenseLayer:
 # per convention X is the training data input also called the features
 # the NN ends up outputting what's called the labels by convention y
 X, y = spiral_data(100, 3)
+print("spiral_data X", X.shape)
 
 # number of neurons in the previous layer is the number of inputs
 #  per neuron in the next layer
@@ -192,4 +203,6 @@ print(layers[0].y)
 layers[1].forward(layers[0].y, Activation.Softmax)
 print("layer2 y:")
 print(layers[1].y)
+
+print("loss", Loss.CategoricalCrossEntropy(layers[1].y, y))
 

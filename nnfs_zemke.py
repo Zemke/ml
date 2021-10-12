@@ -59,7 +59,8 @@ layer rather than doing the matrix product itself.
 
 def accuracy(X, y):
   predictions = np.argmax(X, axis=1)
-  return np.mean(predictions == y)
+  y1 = np.argmax(y, axis=1) if len(y.shape) == 2 else y
+  return np.mean(predictions == y1)
 
 
 class Loss:

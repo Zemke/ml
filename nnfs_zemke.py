@@ -162,14 +162,15 @@ class DenseLayer:
   A layer is made up of neurons.
   """
 
-  def __init__(self, n_inputs, n_neurons):
+  def __init__(self, n_inputs, n_neurons, activation_fn):
     # normally it would be n_neurons by n_inputs
     # here it's the other way around and then transposed to make the weight
     # per input align with what's at Sentdex/NNfSiX
     weights = .1 * np.random.randn(n_inputs, n_neurons).T
     self.neurons = [Neuron(n_inputs, weights[i]) for i in range(n_neurons)]
+    self.activation_fn = activation_fn
 
-  def forward(self, X, activation_fn):
+  def forward(self, X):
     """
     The inputs to each neuron in the layer are the same
     in a densely connected NN. Every neuron from the previous
@@ -182,7 +183,7 @@ class DenseLayer:
       for n in self.neurons:
         y.append(n.forward(batch))
       yy.append(y)
-    self.y = activation_fn(np.array(yy))
+    self.y = self.activation_fn(np.array(yy))
     # expected shape should be (batch_size, n_neurons)
     return self.y
 
@@ -194,13 +195,13 @@ print("spiral_data X", X.shape)
 
 # number of neurons in the previous layer is the number of inputs
 #  per neuron in the next layer
-layers = [DenseLayer(2, 3), DenseLayer(3, 3)]
+layers = [DenseLayer(2, 3, Activation.ReLU), DenseLayer(3, 3, Activation.Softmax)]
 
-layers[0].forward(X, Activation.ReLU)
+layers[0].forward(X)
 print("layer1 y:")
 print(layers[0].y)
 
-layers[1].forward(layers[0].y, Activation.Softmax)
+layers[1].forward(layers[0].y)
 print("layer2 y:")
 print(layers[1].y)
 

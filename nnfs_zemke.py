@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import math
 import numpy as np
 import nnfs
 from nnfs.datasets import spiral_data
@@ -54,6 +55,29 @@ This is visible in how DenseLayer.forward is implemented which
 delegates the dot product calculation to every single neuron in its
 layer rather than doing the matrix product itself.
 """
+
+
+class Loss:
+"""
+Higher confidence evaluates to lower loss. They're run after the output layer.
+"""
+
+  @staticmethod
+  def CategoricalCrossEntropy(yy, tt):
+    """
+    An example:
+    There are three classes the NN is meant to result into.
+    Using one-hot encoding this translates to a vector of 3.
+    tt represents that (t as in target).
+    yy is the vector actual predictions of the NN.
+    If the prediction yy is [.7, .1, .2] then each number is the confidence
+    of the NN per categorical variable as per one-hot encoding.
+    For example .7 is the confidence that it's class at tt[0].
+    """
+    r = 0
+    for i in range(len(tt)):
+      r += tt[i] * math.log(yy[i])
+    return -(r)
 
 
 class Activation:

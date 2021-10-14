@@ -54,6 +54,9 @@ Sentdex/NNfSiX does the pass for the whole layer.
 This is visible in how DenseLayer.forward is implemented which
 delegates the dot product calculation to every single neuron in its
 layer rather than doing the matrix product itself.
+
+Weights, biases, activation, loss, optimization
+Optimize weights a biases output by activations to reduce loss.
 """
 
 

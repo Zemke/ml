@@ -66,6 +66,23 @@ def accuracy(X, y):
   return np.mean(predictions == y1)
 
 
+class Optimization:
+  """
+  Optimizations tweaks weights and biases in order to reduce loss.
+  """
+
+  @staticmethod
+  def GradientDescent():
+    """
+    Most basic, most popular. High memory, imperformant.
+    """
+    pass
+
+  @staticmethod
+  def StochasticGradientDescent():
+    pass
+
+
 class Loss:
   """
   Higher confidence evaluates to lower loss.

@@ -56,7 +56,7 @@ delegates the dot product calculation to every single neuron in its
 layer rather than doing the matrix product itself.
 
 Weights, biases, activation, loss, optimization
-Optimize weights a biases output by activations to reduce loss.
+Optimize weights and biases output by activations to reduce loss.
 """
 
 

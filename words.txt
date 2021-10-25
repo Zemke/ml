@@ -1,0 +1,21 @@
+image processing
+- image segmentation
+- histogram analysis
+- pattern matching
+- color transformation
+
+Regression
+Classification
+Time series
+Segmentation
+
+Machine learning (Random forest, Boosting, SVM, KNN etc).
+
+CNN, RNN, LSTM, Transfer learning, and NLP techniques
+  (Stemming, Lemmatization, Named entity extraction, LDA, Latent semantic analysis etc)
+
+darknet framework
+
+MLOps
+Model Mart
+

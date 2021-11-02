@@ -1,14 +1,8 @@
-# What is an Artificial Neural Network?
+# Neural Networks in Machine Learning
 
-> Simply put, an ANN represents interconnected input and output units in which each connection has an associated weight. During the learning phase, the network learns by adjusting these weights in order to be able to predict the correct class for input data.
+Neural Networks are made of layers of neurons. Most importantly they have weighted connections and each neuron also has a bias. It is these weights and biases that when appropriately tweaked they enable the Neural Network to learn.
 
-https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf
-
-# Human Learning
-
-The irony is: in order for Machine Learning to exist, the human must learn Machine Learning. Here are my findings:
-
-# Biology
+## Biology
 
 Biology | Artificial NN
 --- | ---
@@ -17,6 +11,29 @@ Thickness of Dendrite | Weight of connection (think graphs)
 Axon Terminal | ANN Output
 
 From dendrites through the axon out the axon terminals.
+
+## Forward Pass
+
+Inputs are passed forward throught the NN. The first layer is the input layer representing the inputs (also called features). On the other end they come out the output layer as labels. In between lay the hidden layers. This is mostly done in batches of inputs to reduce the load of operations. \
+In the end this is just basic Algebra: matrix multiplications after each layer including the weight and input matrices.
+
+### Activation function
+
+Each neuron's output also goes through an activation function. Just like in biology a neuron is only activated when the signal (output here) is strong enough.
+
+A popular activation function is ReLU which is as easy as `f(x) = max(0, x)`.
+
+### Loss function
+
+After the inputs have been forward passed through the NN the output layer's neurons values are evaluated by a loss function.
+
+The loss function compares the NN output with the expected results (also called labels) and the loss for each neuron is greater the greater the difference to the result is. Therefore the goal of the NN is to reduce loss which is done by tweaking weights and biases of the neurons and its connections.
+
+## Backpropagation
+
+The loss is groundwork for determining how the weights need to be tweaked. Remember learning is all about changing the weights of the NN.
+
+Differentiation is the Calculus that helps us getting to know how to tweak the weights with the goal to reduce loss.
 
 # Differential Calculus
 
@@ -147,12 +164,22 @@ combine the constants:
 960*x^9
 ```
 
+Chaining goes on forever:
+
+```
+`f(h(y,g(x))) = f'(g(x)) * h'(y, g(x)) * g'(x)`
+```
+
+## Gradient
+
+A partial derivative is one derivative of a multivariate function. That is a function taking multiple parameters. The vector of all the partial derivatives of a function is called the gradient.
+
+The Neural Network can be understood as a huge function of arithmetic operations with weights and biases as paramters. \
+Differentiation helps getting to know how the weights and biases need to change to reduce loss.
+
+Loss is the mountains, differentiation and gradient descent is the mechanism to descent the mountains into the global minimum which is the points of least loss.
+
 # Lingo
-
-## Layers
-
-Given I've learnt about input, hidden and output layers it's safe to assume that these three exist. Given the information from below (Hidden layers) there's always at leat one input layer and one output layer. The layers between the two -- should they exist in the NN -- are hidden layers. \
-Hidden layers are only connected among themselves or with input or output layers but never with the outer world.
 
 ## Perceptron
 
@@ -170,32 +197,11 @@ c. Apply the *Weighted Sum* to the correct *Activation Function*.
 
 [A practical application: Gradient Descent](https://medium.com/@rhome/automatic-differentiation-26d5a993692b#d4e5)
 
-## Backpropagation
-
-Initially the nodes receive a random weight because we don't know the importance of each connection. \
-When the NN has output it is compared to the expected output. Using backpropagations the weights are re-evaluated by how much the output is off from what was expected. \
-This can work with a **gradient descent** algorithm.
-
-Weight decides how vital the information is for the output.
-
-Backpropagation also applies **automatic differentiation** which is used to calculate the **gradient descent** efficiently (see below (see below)).
-
-## Loss function
-
-Also referred to as cost function.
-
-Calculates the gradient of the loss function. This sounds fancy and I don't really know what it means. But loss functions come into play somewhere in the realm of backpropagation and optimizing the graph.
-
-Remember, training the NN on a test data set is essentially an operation to improve the assignment of weights in the NN. \
-The lower the loss value, the less a value is off from what was expected. So, loss should be as low as possible.
-
-There's some subtleties to this, though, like over-fitting.
-
 ## Over-fitting
 
 The NN has memorized correct results rather than trained for it.
 
-Can be observed when training accuracy is greater than prediction accuracy.
+Can be observed when training accuracy is greater than test accuracy.
 
 ## Tensor
 
@@ -231,32 +237,6 @@ Tensor of rank 3:
 ## Optimizer
 
 Algorithms to optimize the NN such as amending weights to reduce the loss. Gradient descent is used by most of them.
-
-
-## Activation Function
-
-Gets output of a node. Also refered to as Transfer Function.
-
-Proceeding to just pasting here as I don't fully understand but might recall later:
-
-[Source](https://towardsdatascience.com/activation-functions-neural-networks-1cbd9f8d91d6)
-
-> It is used to determine the output of neural network like yes or no. It maps the resulting values in between 0 to 1 or -1 to 1 etc. (depending upon the function).
-
-### Sigmoid
-
-NNs are mainly for classification, in binary classification there are naturally two types. \
-Sometimes the result of a NN the result can be any amount of arbitrary numbers. Sigmoid can group these into two outcomes for a binary classification.
-
-See `sigmoid.py` for an implementation.
-
-### ReLu
-
-```
-f(x)=max(0,x)
-```
-
-According to [this](https://deepai.org/machine-learning-glossary-and-terms/relu) ReLu replacing Sigmoid for typical use because it saves on computation.
 
 ## Neural Network Topologies
 
@@ -303,7 +283,6 @@ https://medium.com/towards-artificial-intelligence/building-neural-networks-from
 
 <sup>1</sup>I think the input layer isn't counted, therefore two layers but a single-layer NN. \
 <sup>2</sup>https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53 \
-<sup>3</sup>https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf
 
 # See also
 

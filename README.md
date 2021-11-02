@@ -18,6 +18,135 @@ Axon Terminal | ANN Output
 
 From dendrites through the axon out the axon terminals.
 
+# Differential Calculus
+
+Rate of change with respect to another change.
+
+## Multiplication Rule
+
+Move factor outside the derivative.
+
+```
+f=(fg) -> fg'+f'g
+f=3; g=x^3
+f=(3x^3) -> 3*3x^2+x'(3)*x^3
+f=(3x^3) -> 3*3*1^2+0*x^3
+f=(3x^3) -> 9^2
+```
+
+## Sum Rule
+
+The derivative of a sum is the sum of derivatives.
+
+```
+f=(x+y) -> x'+y'
+```
+
+## Power Rule
+
+```
+x^n = nx^(n-1)
+```
+
+## Examples
+
+The derivative of `f` with respect to `x`.
+
+```
+ f(x) = 2x      + 3y^2
+f'(x) = 2*x'(x) + 3*x'(y^2)
+      = 1*2*1^0 + 2*3*0^1
+      = 2 + 0
+      = 2
+```
+
+The derivative of `f` with respect to `x`.
+
+```
+f(x,y) = 3x^3      - y^2     + 5x      + 2
+ f'(x) = 3*x'(x^3) - x'(y^2) + 5*x'(x) + 2
+       = 3*3*x^2   - 2*0^1   + 5*1     + 0
+       = 9^2       - 0       + 5       + 0
+       = 9^2
+```
+
+The derivative of `f` with respect to `y`.
+
+```
+f(x,y) = 3x^3      - y^2     + 5x      + 2
+ f'(y) = 3*y'(x^3) - y'(y^2) + 5*y'(x) + 0
+       = 3*3x^2    - 2y      + 0       + 0
+       = 3*3*0^2   - 2y      + 0       + 0
+       = 0         - 2y      + 0       + 0
+       = -2y
+```
+
+When deriving `f(x,y)` with respect to `x` then y is a constant and moved out of the derivative. \
+This leaves `x'(x)` meaning the derivative of `x` with respect to `x` which is 1.
+
+```
+f(x,y) = x*y
+
+ f'(x) = y * x'(x)
+       = y * 1
+       = y
+
+ f'(y) = x * y'(y)
+       = x * 1
+       = x
+```
+
+The derivative of `f` with respect to `z` and `y` afterwards.
+
+```
+f(x,y,z) = 3x^3z        - y^2     + 5z      + 2yz
+
+   f'(z) = 3x^3 * z'(z) - 0       + 5*z'(z) + 2y * z'(z)
+         = 3x^3 * 1     - 0       + 5*1     + 2y * 1
+         = 3x^3                   + 5*1     + 2y
+
+   f'(y) = 0            - y'(y^2) + 0       + 2z*y'(y)
+         =              - 2y                + 2z
+
+   f'(x) = 3z*x'(x^3)   - x'(y^2) + 5*x'(z) + 0
+         = 3z*3x^2      - 0       + 5*0     + 0
+         = 3z*3x^2
+         = 3z*3x^2
+         = 9zx^2
+```
+
+When deriving with respect to `z`, then `x` and `y` are constants and moved out of the derivative. Also, the constant rule states that they derive to 0. \
+When deriving with respect to `y` then `3x^3z` derives to `3*y'(x^3z) = 0` as `z` and `x` are constants and are independent of `y`. \
+When deriving with respect to `x` then `z` is kept because it affects `x`. Therefore `f'(x) = 3x^3z = 3z*x'(x^3) = 3z*3x^2`.
+
+
+## Chain Rule:
+
+`f(g(x)) = f'(g(x)) * g'(x)`
+
+```
+3*x'((2x^2))^5 * 2*x'(x^2)
+3*5*(2x^2)^4   * 2*2*x
+15*(2x^2)^4 * 4x
+```
+
+distribute the exponent of 4:
+```
+15*(2^(1*4)*x^(2*4)) * 4x
+15*2^4*x^8           * 4x
+```
+
+combine the `x`es:
+```
+15*2^4*4*x^9
+```
+
+combine the constants:
+```
+15*2^4*4*x^9
+960*x^9
+```
+
 # Lingo
 
 ## Layers
@@ -37,6 +166,10 @@ c. Apply the *Weighted Sum* to the correct *Activation Function*.
 
 *Neural network without hidden layers.*
 
+## Automatic Differentiation
+
+[A practical application: Gradient Descent](https://medium.com/@rhome/automatic-differentiation-26d5a993692b#d4e5)
+
 ## Backpropagation
 
 Initially the nodes receive a random weight because we don't know the importance of each connection. \
@@ -47,25 +180,7 @@ Weight decides how vital the information is for the output.
 
 Backpropagation also applies **automatic differentiation** which is used to calculate the **gradient descent** efficiently (see below (see below)).
 
-### Automatic Differentiation
-
-[A practical application: Gradient Descent](https://medium.com/@rhome/automatic-differentiation-26d5a993692b#d4e5)
-
-#### Derivative
-
-> A derivative is a continuous description of how a function changes with small changes in one or multiple variables.
-
-A derivative may be the sensibility to change. Autodiff is a set of techniques to evaluates these derivatives.
-
-### Gradient Descent
-
-Since in **backpropagation** the idea is to re-evaluate the weights, gradient descent is an optimization algorithm. It's used when training a machine learning model.
-
-**Derivative** or **Differential** is how much off the value is from an expection.
-
-[More](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf)
-
-### Loss function
+## Loss function
 
 Also referred to as cost function.
 
@@ -76,7 +191,7 @@ The lower the loss value, the less a value is off from what was expected. So, lo
 
 There's some subtleties to this, though, like over-fitting.
 
-### Over-fitting
+## Over-fitting
 
 The NN has memorized correct results rather than trained for it.
 

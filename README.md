@@ -299,12 +299,13 @@ Many more NNs at https://medium.com/towards-artificial-intelligence/main-types-o
 
 # TODO
 
+- Neural Network from Scratch
 - Implement Decision Tree
 - Implement Random Forest
-- Probability theory
-- C, C++
 - Do NLP and Image Processing with a NN
 - Play with different NN architectures
+- Probability theory
+- C, C++
 
 # Sources
 

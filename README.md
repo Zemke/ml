@@ -306,6 +306,7 @@ Many more NNs at https://medium.com/towards-artificial-intelligence/main-types-o
 - Play with different NN architectures
 - Probability theory
 - C, C++
+- Data Pipelines
 
 # Sources
 

@@ -203,6 +203,30 @@ The NN has memorized correct results rather than trained for it.
 
 Can be observed when training accuracy is greater than test accuracy.
 
+## Vanishing gradient problem
+
+When during backpropagation the weights get so vanishingly small that the gradient descent cannot operate anymore. The connection to the neuron kind of dies and cannot be leveraged anymore because the mathematical operations on the value of the weight are so small.
+
+The opposite of this is **exploding gradient problem**.
+
+## Architectures
+
+- ResNet
+- EfficientNet
+- AlexNet
+- VGG
+- SqueezeNet
+- DenseNet
+- Inception
+
+### Convolutional Neural Network
+
+- shared weights
+- convolutions are filters on images
+- feature maps
+- pooling layers
+ - extracting the important features from the feature map
+
 ## Tensor
 
 Data container, n-dimensional array. Not multidimensional -- n-dimensional! A scalar is therefore a 0-dimensional tensor.
@@ -275,7 +299,12 @@ Many more NNs at https://medium.com/towards-artificial-intelligence/main-types-o
 
 # TODO
 
-[Neural Network Implementation from Scratch](https://medium.com/towards-artificial-intelligence/building-neural-networks-from-scratch-with-python-code-and-math-in-detail-i-536fae5d7bbf)
+- Implement Decision Tree
+- Implement Random Forest
+- Probability theory
+- C, C++
+- Do NLP and Image Processing with a NN
+- Play with different NN architectures
 
 # Sources
 

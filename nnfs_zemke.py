@@ -124,26 +124,34 @@ class Activation:
   Therefore they're run on layer-leven rather than for each neuron.
   """
 
-  @staticmethod
-  def ReLU(X):
-    """
-    Very commonly used in hidden layers.
-    """
-    return np.maximum(X, 0)
+  def forward(self, X):
+    pass
 
-  @staticmethod
-  def Step(X):
-    """
-    Was popular before ReLU.
-    """
+  def backward(self, X):
+    pass
+
+
+class Step(Activation):
+
+  def forward(self, X):
     return np.vectorize(lambda x: int(x > 0))(X)
 
-  @staticmethod
-  def Sigmoid(X):
-    raise Exception("TODO")
+  def backward(self, X):
+    raise Exception("not yet implemented")
 
-  @staticmethod
-  def Softmax(X):
+
+class ReLU(Activation):
+
+  def forward(self, X):
+    return np.maximum(X, 0)
+
+  def backward(self, X):
+    return 1. if X > 0 else 0.
+
+
+class Softmax(Activation):
+
+  def forward(self, X):
     """
     Often used for the output layer.
     Softmax is Exponentiation then Normalization.
@@ -188,13 +196,13 @@ class DenseLayer:
   A layer is made up of neurons.
   """
 
-  def __init__(self, n_inputs, n_neurons, activation_fn):
+  def __init__(self, n_inputs, n_neurons, activation):
     # normally it would be n_neurons by n_inputs
     # here it's the other way around and then transposed to make the weight
     # per input align with what's at Sentdex/NNfSiX
     weights = .1 * np.random.randn(n_inputs, n_neurons).T
     self.neurons = [Neuron(n_inputs, weights[i]) for i in range(n_neurons)]
-    self.activation_fn = activation_fn
+    self.activation = activation
 
   def forward(self, X):
     """
@@ -209,7 +217,7 @@ class DenseLayer:
       for n in self.neurons:
         y.append(n.forward(batch))
       yy.append(y)
-    self.y = self.activation_fn(np.array(yy))
+    self.y = self.activation.forward(np.array(yy))
     # expected shape should be (batch_size, n_neurons)
     return self.y
 
@@ -221,7 +229,7 @@ print("spiral_data X", X.shape)
 
 # number of neurons in the previous layer is the number of inputs
 #  per neuron in the next layer
-layers = [DenseLayer(2, 3, Activation.ReLU), DenseLayer(3, 3, Activation.Softmax)]
+layers = [DenseLayer(2, 3, ReLU()), DenseLayer(3, 3, Softmax())]
 
 layers[0].forward(X)
 print("layer1 y:")

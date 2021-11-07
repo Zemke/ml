@@ -59,23 +59,19 @@ Weights, biases, activation, loss, optimization
 Optimize weights and biases output by activations to reduce loss.
 """
 
+class Ops:
 
-def accuracy(X, y):
-  predictions = np.argmax(X, axis=1)
-  y1 = np.argmax(y, axis=1) if len(y.shape) == 2 else y
-  return np.mean(predictions == y1)
+  @staticmethod
+  def accuracy(X, y):
+    predictions = np.argmax(X, axis=1)
+    y1 = np.argmax(y, axis=1) if len(y.shape) == 2 else y
+    return np.mean(predictions == y1)
 
 
 class Optimization:
-  """
-  Optimizations tweaks weights and biases in order to reduce loss.
-  """
 
   @staticmethod
   def GradientDescent():
-    """
-    Most basic, most popular. High memory, imperformant.
-    """
     pass
 
   @staticmethod
@@ -117,21 +113,7 @@ class Loss:
     return np.mean(losses)
 
 
-class Activation:
-  """
-  Activation functions are applied to the output of all layer's neurons.
-  That is for each neuron in the layer the dot product + bias.
-  Therefore they're run on layer-leven rather than for each neuron.
-  """
-
-  def forward(self, X):
-    pass
-
-  def backward(self, X):
-    pass
-
-
-class Step(Activation):
+class Step:
 
   def forward(self, X):
     return np.vectorize(lambda x: int(x > 0))(X)
@@ -140,7 +122,7 @@ class Step(Activation):
     raise Exception("not yet implemented")
 
 
-class ReLU(Activation):
+class ReLU:
 
   def forward(self, X):
     return np.maximum(X, 0)
@@ -149,7 +131,7 @@ class ReLU(Activation):
     return 1. if X > 0 else 0.
 
 
-class Softmax(Activation):
+class Softmax:
 
   def forward(self, X):
     """
@@ -169,70 +151,24 @@ class Softmax(Activation):
     raise Exception("not yet implemented")
 
 
-class Neuron:
-  
-  def __init__(self, weights):
-    """
-    Neurons are weights per input and a bias.
-    After the forward pass an activation function is applied.
-    """
-    self.weights = weights
-    self.bias = 0
-
-  def forward(self, X):
-    """
-    The forward pass of a neuron is the dot product of
-    its weights and the inputs.
-    i[0] * weights[0] + i[1] * weights[1] ... + bias
-    In this case we do the forward pass on a neuron level.
-    If we were to do this on a matrix level, we'd be doing
-    matrix multiplication here.
-    """
-    # numpy often works on an element-basis meaning the
-    #  + bias part is applied to each element of the numpy array
-    self.y = np.dot(np.array(X), self.weights) + self.bias
-    return self.y
-
-
 class DenseLayer:
-  """
-  A layer is made up of neurons.
-  """
 
   def __init__(self, n_inputs, n_neurons, activation):
-    # normally it would be n_neurons by n_inputs
-    # here it's the other way around and then transposed to make the weight
-    # per input align with what's at Sentdex/NNfSiX
-    weights = .1 * np.random.randn(n_inputs, n_neurons).T
-    self.neurons = [Neuron(weights[i]) for i in range(n_neurons)]
+    self.weights = .01 * np.random.randn(n_inputs, n_neurons)
+    self.biases = np.zeros((1, n_neurons))
     self.activation = activation
 
   def forward(self, X):
-    """
-    The inputs to each neuron in the layer are the same
-    in a densely connected NN. Every neuron from the previous
-    layer is connected to each neuron in the next layer.
-    The neurons only differ by their assigned weights.
-    """
-    yy = []
-    for batch in X:
-      y = []
-      for n in self.neurons:
-        y.append(n.forward(batch))
-      yy.append(y)
-    self.y = self.activation.forward(np.array(yy))
-    # expected shape should be (batch_size, n_neurons)
+    self.y = self.activation.forward(np.dot(X, self.weights)) + self.biases
     return self.y
 
+  def backward(self, grad):
+    raise Exception("not yet implemented")
 
-# per convention X is the training data input also called the features
-# the NN ends up outputting what's called the labels by convention y
-X, y = spiral_data(100, 3)
-print("spiral_data X", X.shape)
 
-# number of neurons in the previous layer is the number of inputs
-#  per neuron in the next layer
-layers = [DenseLayer(2, 3, ReLU()), DenseLayer(3, 3, Softmax())]
+X, y = spiral_data(samples=200, classes=3)
+
+layers = [DenseLayer(2, 3, ReLU()), DenseLayer(3, 3, ReLU())]
 
 layers[0].forward(X)
 print("layer1 y:")
@@ -244,5 +180,5 @@ print(layers[1].y)
 
 print("loss", Loss.CategoricalCrossEntropy(layers[1].y, y))
 
-print("acc", accuracy(layers[1].y, y))
+print("acc", Ops.accuracy(layers[1].y, y))
 

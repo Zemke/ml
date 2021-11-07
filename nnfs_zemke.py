@@ -165,10 +165,13 @@ class Softmax(Activation):
     norm = exp / np.sum(exp, axis=1, keepdims=True)
     return norm
 
+  def backward(self, X):
+    raise Exception("not yet implemented")
+
 
 class Neuron:
   
-  def __init__(self, n_inputs, weights):
+  def __init__(self, weights):
     """
     Neurons are weights per input and a bias.
     After the forward pass an activation function is applied.
@@ -201,7 +204,7 @@ class DenseLayer:
     # here it's the other way around and then transposed to make the weight
     # per input align with what's at Sentdex/NNfSiX
     weights = .1 * np.random.randn(n_inputs, n_neurons).T
-    self.neurons = [Neuron(n_inputs, weights[i]) for i in range(n_neurons)]
+    self.neurons = [Neuron(weights[i]) for i in range(n_neurons)]
     self.activation = activation
 
   def forward(self, X):

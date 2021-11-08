@@ -200,6 +200,8 @@ layers[1].backward(loss_fn.X_grad)
 layers[0].activation.backward(layers[1].X_grad)
 layers[0].backward(layers[0].activation.X_grad)
 
+# TODO I'm wondering there's there's no backpass for Softmax.
+
 print('grads')
 print(layers[1].X_grad)
 print(layers[1].weight_grad)

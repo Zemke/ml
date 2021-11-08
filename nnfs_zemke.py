@@ -79,14 +79,9 @@ class Optimization:
     pass
 
 
-class Loss:
-  """
-  Higher confidence evaluates to lower loss.
-  They're run after the activation function of the output layer.
-  """
+class CategoricalCrossEntropy:
 
-  @staticmethod
-  def CategoricalCrossEntropy(X, tt):
+  def forward(self, X, tt):
     """
     An example:
     There are three classes the NN is meant to result into.
@@ -110,7 +105,16 @@ class Loss:
     else:
       raise Exception("Invalid target tt shape " + tt.shape)
     losses = -np.log(confidences)
+    self.y = losses
     return np.mean(losses)
+
+  def backward(self, X, y_true):
+    samples = len(X)
+    if len(y_true.shape) == 2:
+      y_true = np.argmax(y_true, axis=1)
+    self.X_grad = X.copy()
+    self.X_grad[range(samples), y_true] -= 1
+    self.X_grad = self.X_grad / samples
 
 
 class Step:
@@ -125,30 +129,30 @@ class Step:
 class ReLU:
 
   def forward(self, X):
+    self.X = X
     return np.maximum(X, 0)
 
-  def backward(self, X):
-    return 1. if X > 0 else 0.
+  def backward(self, X_grad):
+    self.X_grad = X_grad.copy()
+    self.X_grad[self.X <= 0] = 0
+    return X_grad
 
 
 class Softmax:
 
   def forward(self, X):
-    """
-    Often used for the output layer.
-    Softmax is Exponentiation then Normalization.
-    Softmax requires the outputs of all neurons in the layer.
-    """
-    # as always in numpy the operation is done element-wise
-    # axis 0 is max in col, 1 is max in row
-    # max reduces an elemnts array to a scalar but keepdims retains
-    #  that dimension making it a one-element vector
     exp = np.exp(X - np.max(X, axis=1, keepdims=True))
     norm = exp / np.sum(exp, axis=1, keepdims=True)
+    self.y = norm
     return norm
 
   def backward(self, X):
-    raise Exception("not yet implemented")
+    self.X_grad = np.empty_like(X)
+    for index, (single_y, single_X_grad) in enumerate(zip(self.y, X)):
+      single_y = single_y.reshape(-1, 1)
+      jacobian_matrix = np.diagflat(single_y) - np.dot(single_y, single_y.T)
+      self.X_grad[index] = np.dot(jacobian_matrix, single_X_grad)
+    return self.X_grad
 
 
 class DenseLayer:
@@ -159,16 +163,24 @@ class DenseLayer:
     self.activation = activation
 
   def forward(self, X):
-    self.y = self.activation.forward(np.dot(X, self.weights)) + self.biases
+    self.X = X
+
+    self.y = self.activation.forward(np.dot(X, self.weights) + self.biases)
     return self.y
 
-  def backward(self, grad):
-    raise Exception("not yet implemented")
+  def backward(self, X_grad):
+    self.weight_grad = np.dot(self.X.T, X_grad)
+    self.bias_grad = np.sum(X_grad, axis=0, keepdims=True)
+    self.X_grad = np.dot(X_grad, self.weights.T)
+    return X_grad
 
 
 X, y = spiral_data(samples=200, classes=3)
 
-layers = [DenseLayer(2, 3, ReLU()), DenseLayer(3, 3, ReLU())]
+layers = [DenseLayer(2, 3, ReLU()), DenseLayer(3, 3, Softmax())]
+loss_fn = CategoricalCrossEntropy()
+
+print("--- Forward passes ---")
 
 layers[0].forward(X)
 print("layer1 y:")
@@ -178,7 +190,21 @@ layers[1].forward(layers[0].y)
 print("layer2 y:")
 print(layers[1].y)
 
-print("loss", Loss.CategoricalCrossEntropy(layers[1].y, y))
-
+print("loss", loss_fn.forward(layers[1].y, y))
 print("acc", Ops.accuracy(layers[1].y, y))
+
+print("--- Backpropagation ---")
+
+loss_fn.backward(layers[1].y, y)
+layers[1].backward(loss_fn.X_grad)
+layers[0].activation.backward(layers[1].X_grad)
+layers[0].backward(layers[0].activation.X_grad)
+
+print('grads')
+print(layers[1].X_grad)
+print(layers[1].weight_grad)
+print(layers[1].bias_grad)
+print(layers[0].X_grad)
+print(layers[0].weight_grad)
+print(layers[0].bias_grad)
 

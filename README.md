@@ -304,6 +304,7 @@ Many more NNs at https://medium.com/towards-artificial-intelligence/main-types-o
 - Implement Random Forest
 - Do NLP and Image Processing with a NN
 - Play with different NN architectures
+- Statistics
 - Probability theory
 - C, C++
 - Data Pipelines

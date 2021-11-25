@@ -258,6 +258,38 @@ Tensor of rank 3:
 
 [Source](https://towardsdatascience.com/quick-ml-concepts-tensors-eb1330d7760f)
 
+## Standardization and Normalization in PyTorch
+
+**Normalization** is a matter of range most popularly by squashing all values of any range to a range of 0 to 1.
+**Standardization** is a matter of making the data's mean equal 0 and its standard deviation equal 1.
+
+Given the mean and std to PyTorch's `Normalize(mean, std)` will calculate the z-score used for standardization. \
+Z-score formula:
+
+```
+Z = (x - m) / s
+```
+
+`x` = input \
+`m` = mean of x \
+`s` = standard deviation
+
+PyTorch's `ToTensor()` transform shifts ranges of images from 0-255 to 0-1 floats.
+
+For a tensor `x` of PyTorch typical format NxCxHxW you'd obtain std and mean like this:
+
+```
+std, mean = torch.std_mean(x, (0,2,3))
+```
+
+If C is the last dimension the dims would be `0,1,2`.
+
+These can be passed to PyTorch to do standardization:
+
+```
+Normalize(std=std, mean=mean)
+```
+
 ## Optimizer
 
 Algorithms to optimize the NN such as amending weights to reduce the loss. Gradient descent is used by most of them.

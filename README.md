@@ -290,6 +290,13 @@ These can be passed to PyTorch to do standardization:
 Normalize(std=std, mean=mean)
 ```
 
+To unnormalize (i.e.) show the original image, the formula is:
+
+```
+mean, std = traind.transform.transforms[-1].mean, traind.transform.transforms[-1].std
+Normalize(mean=(-mean / std), std=(1.0 / std))
+```
+
 ## Optimizer
 
 Algorithms to optimize the NN such as amending weights to reduce the loss. Gradient descent is used by most of them.
